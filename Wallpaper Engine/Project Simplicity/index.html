@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Project Simplicity</title>
+        <style type="text/css">
+            @font-face{
+                font-family: weem;
+                src: url(weem.otf);
+            }
+            body {
+                background-image: url(Black.jpg); /*You will specify your image path here.*/
+                -moz-background-size: cover;
+                -webkit-background-size: cover;
+                background-size: cover;
+                background-position: top center !important;
+                background-repeat: no-repeat !important;
+                background-attachment: fixed;
+            }
+            .clock{
+                text-align: right;
+                padding-right:10px;
+                color: #fff;
+                font-family: weem;
+                font-size: 80px;
+            }
+            .date{
+                text-align: right;
+                padding-right:10px;
+                color: #fff;
+                font-family: weem;
+                font-size: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="MyClockDisplay" class="clock"></div>
+        <div id="MyDateDisplay" class="date"></div>
+        <script type="text/javascript">
+
+            function showTime(){ //http://cdn.paper4pc.com/images/awesome-view-wallpaper-1.jpg
+                var date = new Date();
+                var dom = date.getDate(); //Day Of Month 0-31
+                var dow = date.getDay(); //Day Of Week  0-6
+                var month = date.getMonth(); //0-11
+                var h = date.getHours(); // 0 - 23
+                var m = date.getMinutes(); // 0 - 59
+                var s = date.getSeconds(); // 0 - 59
+                var session = "AM";
+                var day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+                var montha = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                var txt = "";
+
+                //Big ass if statement incomming
+
+                if(dom == 1 || dom == 21 || dom == 31){
+                    txt = "st";
+                }else if(dom == 2 || dom == 22){
+                    txt = "nd";
+                }else if(dom == 3 || dom == 23){
+                    txt = "rd";
+                }else{
+                    txt = "th"
+                }
+
+                if(h == 0){ //making sure it dosn't say stuff like 0:36 AM
+                    h = 12;
+                }
+
+                if(h > 12){ //setting up for digital
+                    h = h - 12;
+                    session = "PM";
+                }
+
+                h = (h < 10) ? "0" + h : h; //really cool way of doing this
+                m = (m < 10) ? "0" + m : m;
+                s = (s < 10) ? "0" + s : s;
+
+                var time = h + ":" + m + ":" + s + " " + session;
+                document.getElementById("MyClockDisplay").innerText = time;
+                document.getElementById("MyClockDisplay").textContent = time;
+
+                var dateB = day[dow] + ", " + dom + txt + ", " + montha[month];
+                document.getElementById("MyDateDisplay").innerText = dateB;
+                document.getElementById("MyDateDisplay").textContent = dateB;
+
+                setTimeout(showTime, 1000); //setting it on a refresh of every 1000ms == 1s
+            }
+
+            showTime();
+
+        </script>
+    </body>
+</html>
